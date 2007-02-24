@@ -29,9 +29,18 @@ class TestSimilarity < Test::Unit::TestCase
   include Clusterer::Tokenizer 
   def test_simple_tokenizer
     x = []
-    simple_tokenizer("good! morrow!! the AB") {|w| x << w}
-    assert_equal 2, x.size
+    simple_tokenizer("good! morrow!! the AB called") {|w| x << w}
+    assert_equal 3, x.size
     assert_equal "morrow".stem, x[1]
+    assert_equal "call", x[2]
+  end
+
+  def test_simple_tokenizer_with_no_stemming
+    x = []
+    simple_tokenizer("good! morrow!! the AB called", :no_stem => true) {|w| x << w}
+    assert_equal 3, x.size
+    assert_equal "morrow", x[1]
+    assert_equal "called", x[2]
   end
 
   def test_simple_ngram_tokenizer_1
@@ -43,14 +52,14 @@ class TestSimilarity < Test::Unit::TestCase
 
   def test_simple_ngram_tokenizer
     x = []
-    simple_ngram_tokenizer("The cow is a cool holy animal.",1) {|w| x << w}
+    simple_ngram_tokenizer("The cow is a cool holy animal.",:ngram => 1) {|w| x << w}
     assert_equal 4, x.size
     x = []
-    simple_ngram_tokenizer("The cow is a cool holy animal.",2) {|w| x << w}
+    simple_ngram_tokenizer("The cow is a cool holy animal.",:ngram => 2) {|w| x << w}
     assert_equal 6, x.size
     assert x.include?(["holy".stem, "animal".stem].join(" "))
     x = []
-    simple_ngram_tokenizer("The cow is a cool holy animal.",3) {|w| x << w}
+    simple_ngram_tokenizer("The cow is a cool holy animal.",:ngram => 3) {|w| x << w}
     assert_equal 7, x.size
     assert x.include?(["holy".stem, "animal".stem].join(" "))
     assert x.include?(["cool".stem, "holy".stem, "animal".stem].join(" "))

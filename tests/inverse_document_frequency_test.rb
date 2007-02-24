@@ -44,19 +44,19 @@ class InverseDocumentFrequencyTest < Test::Unit::TestCase
 
   def test_documents_count
     idf = InverseDocumentFrequency.new()
-    Document.new("the world is not a bad place to live.",idf)
-    Document.new("the world is a crazy place to live.",idf)
+    Document.new("the world is not a bad place to live.", :idf => idf)
+    Document.new("the world is a crazy place to live.", :idf => idf)
     assert_equal 2, idf.documents_count
   end
 
   def test_clean_cached_normalizing_factor
     idf = InverseDocumentFrequency.new()
-    Document.new("the world is not a bad place to live.",idf)
-    Document.new("hello, the world is a crazy place to live.",idf)
+    Document.new("the world is not a bad place to live.", :idf => idf)
+    Document.new("hello, the world is a crazy place to live.", :idf => idf)
     t ="crazy".stem
     f = idf[t]
     assert_in_delta Math.log(2/1), f, 0.1
-    Document.new("the world is a weird place to live.",idf)
+    Document.new("the world is a weird place to live.", :idf => idf)
     assert_equal f, idf[t]
     idf.clean_cached_normalizing_factor
     assert_not_equal f, idf[t]
@@ -64,11 +64,11 @@ class InverseDocumentFrequencyTest < Test::Unit::TestCase
 
   def test_array_index
     idf = InverseDocumentFrequency.new()
-    Document.new("the world is not a bad place to live.",idf)
+    Document.new("the world is not a bad place to live.", :idf => idf)
     assert_in_delta 1.0, idf["world"], 0.001
     assert_in_delta 1.0, idf["hello"], 0.001
     
-    Document.new("hello, the world is a crazy place to live.",idf)
+    Document.new("hello, the world is a crazy place to live.", :idf => idf)
     idf.clean_cached_normalizing_factor
     idf << "hello"
     assert idf["hello"] < 0.99

@@ -26,7 +26,8 @@ module Clusterer
       def cluster(algorithm, objects, options = { })
         options[:no_of_clusters] ||= Math.sqrt(objects.size).to_i
         idf = InverseDocumentFrequency.new
-        docs = objects.collect {|o| (defined? yield) == "yield" ? Document.new(o,idf) {|o| yield(o)} : Document.new(o,idf)}
+        docs = objects.collect {|o|
+          (defined? yield) == "yield" ? Document.new(o, :idf => idf) {|o| yield(o)} : Document.new(o, :idf => idf)}
         Algorithms.send(algorithm, docs.collect {|d| d.normalize!(idf) }, options[:no_of_clusters])
       end
     end

@@ -2,6 +2,8 @@
 
 #Copyright (c) 2006 Surendra K Singhi <ssinghi AT kreeti DOT com>
 
+$:.unshift File.join(File.dirname(__FILE__), "..", "lib")
+
 require 'soap/wsdlDriver'
 require 'clusterer'
 
@@ -23,8 +25,8 @@ while (count < 100 && count <= max_count)
   count += more_results.resultElements.size
 end
 
-clusters = Clusterer::Clustering.kmeans_clustering(results.collect {|r| r.title.to_s.gsub(/<\/?[^>]*>/, "") +
-                                                     " " + r.snippet.to_s.gsub(/<\/?[^>]*>/, "")})
+clusters = Clusterer::Clustering.cluster(:kmeans, results) {|r| r.title.to_s.gsub(/<\/?[^>]*>/, "") +
+  " " + r.snippet.to_s.gsub(/<\/?[^>]*>/, "")}
 
 #writing the output
 File.open("temp.html","w") do |f|
@@ -32,13 +34,13 @@ File.open("temp.html","w") do |f|
   clusters.each do |clus|
     f.write("<li>")
     f.write("<ul>")
-    clus.each do |d|
+    clus.each do |result|
       f.write("<li>")
       f.write("<span class='title'>")
-      f.write(results[d].title)
+      f.write(result.title)
       f.write("</span>")
       f.write("<span class='snippet'>")
-      f.write(results[d].snippet)
+      f.write(result.snippet)
       f.write("</span>")
       f.write("</li>")
     end

@@ -31,9 +31,9 @@ class DocumentCentroidTest < Test::Unit::TestCase
 
   def setup
     @idf = InverseDocumentFrequency.new()
-    @d = Document.new("hello world, mea culpa, goodbye world.",@idf).normalize!(@idf)
-    @e = Document.new("the world is not a bad place to live.",@idf).normalize!(@idf)
-    @f = Document.new("the world is a crazy place to live.",@idf).normalize!(@idf)
+    @d = Document.new("hello world, mea culpa, goodbye world.", :idf => @idf).normalize!(@idf)
+    @e = Document.new("the world is not a bad place to live.", :idf => @idf).normalize!(@idf)
+    @f = Document.new("the world is a crazy place to live.", :idf => @idf).normalize!(@idf)
     @g = Document.new("unique document.")
     @c1 = Clusterer::Cluster.new([@d, @e, @f])
     @c2 = Clusterer::Cluster.new([@d, @g])

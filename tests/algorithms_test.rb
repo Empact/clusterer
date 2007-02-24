@@ -19,13 +19,13 @@ class TestAlgorithms < Test::Unit::TestCase
   end
 
   def test_kmeans
-#    3.times do
-#       assert_equal 2, Algorithms.kmeans([@d, @e, @f, @g], 2).size
-#       assert_equal 2, Algorithms.kmeans([@d, @e, @f, @g], 2, :maximum_iterations => 5).size
+    3.times do
+      assert_equal 2, Algorithms.kmeans([@d, @e, @f, @g], 2).size
+      assert_equal 2, Algorithms.kmeans([@d, @e, @f, @g], 2, :maximum_iterations => 5).size
       assert_equal 2, Algorithms.kmeans([@d, @e, @f, @g], 2, :maximum_iterations => 5,
                                         :seeds => [Cluster.new([@d]), Cluster.new([@d])]).size
-#      assert_equal 3, Algorithms.kmeans([@d, @e, @f, @g],3).size
-#    end
+      assert_equal 3, Algorithms.kmeans([@d, @e, @f, @g],3).size
+    end
   end
 
   def test_hierarchical_clustering

@@ -23,14 +23,10 @@
 module Clusterer
   class Clustering
     class << self
-      def clustering(algorithm, objects, options = { })
+      def cluster(algorithm, objects, options = { })
         options[:no_of_clusters] ||= Math.sqrt(objects.size).to_i
         idf = InverseDocumentFrequency.new
-        docs = if (defined? yield) == "yield"
-                 objects.collect {|o| Document.new(o,idf) {|o| yield(o)}}
-               else
-                 objects.collect {|o| Document.new(o,idf)}
-               end
+        docs = objects.collect {|o| (defined? yield) == "yield" ? Document.new(o,idf) {|o| yield(o)} : Document.new(o,idf)}
         Algorithms.send(algorithm, docs.collect {|d| d.normalize!(idf) }, options[:no_of_clusters])
       end
     end

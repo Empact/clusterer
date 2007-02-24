@@ -25,7 +25,6 @@ spec = Gem::Specification.new do |s|
   s.files = FileList["{bin,tests,lib,docs,examples}/**/*"].exclude("rdoc").to_a
   s.require_path = "lib"
   s.autorequire = "clusterer"
-  s.test_files = "tests/*_test.rb"
   s.has_rdoc = true
   s.extra_rdoc_files = ["README"]
   s.add_dependency("stemmer", ">= 0.0.0")

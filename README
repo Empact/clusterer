@@ -1,0 +1,43 @@
+A ruby library which implements clustering and classification
+algorithms for text mining.
+
+Clustering algorithms currently implemented are - K-Means, and
+Hierarchical clustering, LSI. Many variations of these algorithms are
+also available, where you can change the similarity matrix, use
+refined version, i.e., hierarchical/bisecting clustering followed by
+Kmeans. 
+
+LSI can be also used for clustering. In this first SVD transformation
+is done, and then the documents in the new space are clustered (any of
+KMeans, hierarchical/bisecting clustering can be used).
+
+Hierarchical gives better results, but complexity roughly O(n*n)
+
+K-means is very fast, O(k*n*i), i is number of iterations.
+
+the examples need google/yahoo api keys, and the yahoo example requires 
+ysearch-rb from
+
+http://developer.yahoo.com/download/download.html
+
+The multinomial, complement and weightnormalized complement Bayes
+algorithm also implementd.
+
+Lsi can also be used for classification.
+
+Thanks a lot to several people who researched and worked on the several ideas.
+
+Happy hacking...... 
+
+
+ToDo: 
+Add more documentation, and explain the API.
+Add more examples.
+Incorporate the C version of Gorrell and Simon Funk's GHA and SVD algorithm, also 
+write a Ruby version.
+Incorporate my own C version of Kernel SVD, and GHA.
+Explore ways to improve and make a better tokenizer, and introduce other NLP techniques.
+Add more classification algos: Decision Trees, and various extensions of it.
+Ruby and C version of SVM and NN.
+Feature Selection.
+ 

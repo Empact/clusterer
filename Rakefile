@@ -16,7 +16,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name = "clusterer"
-  s.version = "0.2.0"
+  s.version = "0.1.9"
   s.author = "Surendra K Singhi"
   s.email = "ssinghi@kreeti.com"
   s.homepage = "http://rubyforge.org/projects/clusterer/"

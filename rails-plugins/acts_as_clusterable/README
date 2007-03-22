@@ -1,0 +1,25 @@
+This plugin makes it very easy to cluster active record objects. It
+uses the clusterer Ruby gem. 
+
+Download and install the gem, and its dependencies. Copy the plugin
+into vendor/plugins from the following svn repository 
+
+http://opensvn.csie.org/acts_as_clusterable/
+
+Add the following lines to your model:
+
+  acts_as_clusterable :fields  => ['title','text']
+
+if no fields are given then it will use all text and string fields present in the model.
+Now, doing clustering is as easy as:
+
+Joke.hierarchical_clustering()
+Joke.kmeans_clustering()
+
+By default the number of clusters is <i>Math.sqrt(no. of objects)</i>,
+so to get custom no. of clusters give, the no. of clusters as an
+argument, i.e., 
+
+Joke.hierarchical_clustering(2)
+Joke.kmeans_clustering(2)
+

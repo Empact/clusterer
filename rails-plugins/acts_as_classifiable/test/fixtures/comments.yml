@@ -1,0 +1,8 @@
+hello:
+  id: 1
+  title: hello world
+  body: evil world
+bye:
+  id: 2
+  title: goodbye world
+  body: goodbye evil world

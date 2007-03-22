@@ -21,10 +21,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module Clusterer
-  class Cluster 
+  class Cluster
     attr_reader :centroid, :documents
     include ClusterSimilarity
-    
+
     def initialize(docs = [])
       @documents = docs
     end
@@ -32,7 +32,7 @@ module Clusterer
     def centroid
       @centroid ||= (@documents.empty? ? nil : @documents[0].class.centroid_class.new(documents))
     end
-    
+
     def merge!(cluster)
       documents.concat(cluster.documents)
       @centroid ? centroid.merge!(cluster.centroid) : @centroid = cluster.centroid
@@ -46,7 +46,7 @@ module Clusterer
     end
 
     def ==(cluster)
-      cluster && self.documents == cluster.documents 
+      cluster && self.documents == cluster.documents
     end
 
     def intra_cluster_cosine_similarity
@@ -54,4 +54,3 @@ module Clusterer
     end
   end
 end
-

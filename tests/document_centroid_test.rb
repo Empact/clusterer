@@ -41,7 +41,7 @@ class DocumentCentroidTest < Test::Unit::TestCase
 
   def test_initialization
     c = DocumentsCentroid.new([@d, @e, @f])
-    assert 3, c.no_of_documents
+    assert_equal 3, c.no_of_documents
     assert c.vector_length
   end
 
@@ -51,14 +51,14 @@ class DocumentCentroidTest < Test::Unit::TestCase
     c3 = c2.clone
     t = c1.vector_length
     c1.merge!(c2)
-    assert 5, c1.no_of_documents
+    assert_equal 5, c1.no_of_documents
     assert_equal c2, c3
     assert_not_equal t, c1.vector_length
 
     c4 = DocumentsCentroid.new()
     t = c1.vector_length
     c1.merge!(c4)
-    assert 5, c1.no_of_documents
+    assert_equal 5, c1.no_of_documents
     assert_equal t, c1.vector_length
   end
 end

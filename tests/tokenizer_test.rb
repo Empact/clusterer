@@ -45,7 +45,7 @@ class TestSimilarity < Test::Unit::TestCase
 
   def test_simple_ngram_tokenizer_1
     x = []
-    simple_ngram_tokenizer("Good! morrow!! the AB",1) {|w| x << w}
+    simple_ngram_tokenizer("Good! morrow!! the AB", :ngram => 1) {|w| x << w}
     assert_equal 2, x.size
     assert_equal "morrow".stem, x[1]
   end

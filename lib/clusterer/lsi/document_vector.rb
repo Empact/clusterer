@@ -27,7 +27,7 @@ module Clusterer
       
       def cosine_similarity(doc)
         return 1.0 unless doc# && doc.centroid
-        self.dot((doc.class == DocumentsCentroidVector ? doc.centroid : doc)) #.transpose
+        self.inner_product((doc.class == DocumentsCentroidVector ? doc.centroid : doc)) #.transpose
       end
     end
 

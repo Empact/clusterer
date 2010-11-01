@@ -109,8 +109,6 @@ module Clusterer
 end
 
 class Vector
-  alias :dot :inner_product
-  
   def transpose
     self
   end

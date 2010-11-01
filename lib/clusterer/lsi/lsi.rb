@@ -53,18 +53,18 @@ module Clusterer
       @t, @s, @d =  matrix.svd
       val = @s.trace * cutoff
       cnt = -1
-      (0..([@s.nrow, @s.ncol].min - 1)).inject(0) {|n,v| cnt += 1; (n > val) ? break : n + @s[v,v] }
+      (0..([@s.row_size, @s.column_size].min - 1)).inject(0) {|n,v| cnt += 1; (n > val) ? break : n + @s[v,v] }
       @t = DMatrix.join_columns((0..cnt).collect {|i|@t.column(i) })
       @d = DMatrix.join_rows((0..cnt).collect {|i| @d.row(i) })
       @s = DMatrix.join_columns((0..cnt).collect {|i|@s.column(i) })
-      @s = DMatrix.join_rows((0..cnt).collect {|i|@s.row(i) }) unless @s.ncol == cnt
+      @s = DMatrix.join_rows((0..cnt).collect {|i|@s.row(i) }) unless @s.column_size == cnt
     end
 
     def cluster_documents(k, options = { })
       rebuild_if_needed
       cnt = -1
       clusters = Algorithms.send(options[:algorithm] || :kmeans, 
-                                 sd.columns.collect{|c| c.position = (cnt += 1); c}, k, options)
+                                 sd.column_vectors.collect{|c| c.position = (cnt += 1); c}, k, options)
       clusters.collect {|clus| clus.documents.collect {|d| @documents[d.position]}}
     end
     
@@ -75,7 +75,7 @@ module Clusterer
       results = []
       vec = (vec * @s).transpose # * @s
       vec = vec.column(0) unless $LINALG
-      sd.columns.each_with_index {|d,i| results << documents[i] if d.cosine_similarity(vec) >= threshold}
+      sd.column_vectors.each_with_index {|d,i| results << documents[i] if d.cosine_similarity(vec) >= threshold}
       results
     end
 

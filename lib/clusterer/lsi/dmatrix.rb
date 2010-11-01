@@ -108,13 +108,6 @@ module Clusterer
   end
 end
 
-class Matrix
-  alias :nrow :row_size
-  alias :ncol :column_size
-  alias :rows :row_vectors
-  alias :columns :column_vectors
-end
-
 class Vector
   alias :dot :inner_product
   

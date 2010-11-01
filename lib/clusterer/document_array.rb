@@ -37,7 +37,7 @@ module Clusterer
 
       if (idf = options[:idf])
         idf.increment_documents_count
-        self.each_with_index {|ind,val| idf << @@term_array_position_mapper.index(ind) if val && val > 0.0}
+        self.each_with_index {|ind,val| idf << @@term_array_position_mapper[ind] if val && val > 0.0}
       end
     end
     
@@ -52,7 +52,7 @@ module Clusterer
       self[@@term_array_position_mapper.size - 1] ||= 0.0 
 
       self.each_with_index do |frequency, ind|
-        f = add_term ? (idf << term) : (idf ? idf[@@term_array_position_mapper.index(ind)] : 1.0)
+        f = add_term ? (idf << term) : (idf ? idf[@@term_array_position_mapper[ind]] : 1.0)
         self[ind] = (frequency || 0) * f
         normalizing_factor += self[ind] ** 2
       end

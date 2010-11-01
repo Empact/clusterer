@@ -32,7 +32,7 @@ module Clusterer
       @object = object
       super(@@term_array_position_mapper.size,0.0)
       send(options[:tokenizer] || :simple_tokenizer,
-           ((defined? yield) == "yield" ? yield(object) : object.to_s),
+           (block_given? ? yield(object) : object.to_s),
            options[:tokenizer_options] || {}) {|term| self << term }
 
       if (idf = options[:idf])

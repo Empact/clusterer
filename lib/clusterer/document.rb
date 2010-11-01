@@ -37,7 +37,7 @@ module Clusterer
     def initialize (object, options = { })
       @object = object
       send(options[:tokenizer] || :simple_tokenizer,
-           ((defined? yield) == "yield" ? yield(object) : object.to_s),
+           (block_given? ? yield(object) : object.to_s),
            options[:tokenizer_options] || {}) {|term| self << term }
       
       if (idf = options[:idf])

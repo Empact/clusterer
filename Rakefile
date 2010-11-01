@@ -3,7 +3,6 @@
 ###Copyright (c) 2006 Surendra K Singhi <ssinghi AT kreeti DOT com>
 
 require 'rubygems'
-Gem::manage_gems
 require 'rake/gempackagetask'
 require 'rake/testtask'
 require 'rake/rdoctask'
